@@ -132,12 +132,12 @@ This step created a `b` package. It is a library only. It declares a file `index
 
 Notice the source are created under `$GOPATH/src/` as `github.com/mh-cbon/b`
 
-It is located at `$GOPATH/src`, which makes it loadable from your other go programs/libraries as `github.com/mh-cbon/b``.
+It is located at `$GOPATH/src`, which makes it loadable from your other go programs/libraries as `github.com/mh-cbon/b`.
 
 # Import b package into a package
 
 ```sh
-cd $GOPATH/github.com/mh-cbon/a
+cd $GOPATH/src/github.com/mh-cbon/a
 
 cat <<EOT > main.go
 package main
@@ -167,7 +167,7 @@ Let s finish this readme by importing ans consuming a remote dependency.
 `a` will depend and consume `github.com/Masterminds/semver`
 
 ```sh
-cd $GOPATH/github.com/mh-cbon/a
+cd $GOPATH/src/github.com/mh-cbon/a
 
 glide get github.com/Masterminds/semver
 
