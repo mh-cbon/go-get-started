@@ -29,7 +29,9 @@ see https://golang.org/doc/code.html#Workspaces
 cat <<EOT >> ~/.bash_profile
 # Go variables
 export GOPATH=$HOME/gow
-export PATH=PATH:$GOPATH/bin
+export PATH=$PATH:$GOPATH/bin
+# go 1.6.x and below only
+export GOBIN=$GOPATH/bin
 EOT
 source ~/.bash_profile
 ```
