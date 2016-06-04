@@ -14,7 +14,7 @@ See https://github.com/moovweb/gvm
 
 # Configure the go workspace
 
-1. Create a folder to host the workspace
+#### Create a folder to host the workspace
 
 ```sh
 mkdir $HOME/gow
@@ -22,7 +22,7 @@ mkdir $HOME/gow
 
 see https://golang.org/doc/code.html#Workspaces
 
-2. Setup the required environment variables
+#### Setup the required environment variables
 
 ```sh
 cat <<EOT >> ~/.bash_profile
@@ -34,7 +34,7 @@ EOT
 
 see https://golang.org/doc/code.html#GOPATH
 
-3. Setup directories
+#### Setup directories
 
 ```sh
 mkdir -p $GOPATH/pkg
