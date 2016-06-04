@@ -27,8 +27,8 @@ see https://golang.org/doc/code.html#Workspaces
 ```sh
 cat <<EOT >> ~/.bash_profile
 # Go variables
-export GOBIN=$GOROOT/bin
 export GOPATH=$HOME/gow
+export PATH=PATH:$GOPATH/bin
 EOT
 source ~/.bash_profile
 ```
@@ -40,6 +40,7 @@ see https://golang.org/doc/code.html#GOPATH
 ```sh
 mkdir -p $GOPATH/pkg
 mkdir -p $GOPATH/src
+mkdir -p $GOPATH/bin
 ```
 
 # Get a package manager
@@ -54,7 +55,7 @@ make build
 go install -ldflags "-X main.version=0.10.2-86-g5865b8e" glide.go
 ```
 
-FYI `which glide -> $GOBIN/glide`
+FYI `which glide -> $GOPATH/bin/glide`
 
 see https://github.com/Masterminds/glide
 
@@ -215,7 +216,6 @@ Notice the environment variables
 ```sh
 env | grep GO
 GOROOT=$HOME/.gvm/gos/go1.6
-GOBIN=$GOROOT/bin
 GOPATH=$HOME/gow
 ```
 
