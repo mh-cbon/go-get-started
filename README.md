@@ -30,6 +30,7 @@ cat <<EOT >> ~/.bash_profile
 export GOBIN=$GOROOT/bin
 export GOPATH=$HOME/gow
 EOT
+source ~/.bash_profile
 ```
 
 see https://golang.org/doc/code.html#GOPATH
