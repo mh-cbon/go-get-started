@@ -9,6 +9,10 @@ I recommend to use `gvm`
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 gvm install go1.6.2
 gvm use go1.6.2 --default
+which go
+  $HOME/.gvm/gos/go1.6.2/bin/go
+go version
+  go version go1.6.2 linux/amd64
 ```
 
 See https://github.com/moovweb/gvm
