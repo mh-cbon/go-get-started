@@ -224,12 +224,14 @@ Notice the environment variables
 env | grep GO
 GOROOT=$HOME/.gvm/gos/go1.6
 GOPATH=$HOME/gow
+GOBIN=$GOPATH/bin
 ```
 
 Which means,
-- when you run `go install....` it installs binary into `$HOME/.gvm/gos/go1.6/bin`
+- when you run `go install....` it installs binary into `$GOPATH/bin`
 - new pakages are created under `$HOME/gow/src`
 
+If you really want to understand go implementation of import, please check [Context.Import](https://github.com/golang/go/blob/master/src/go/build/build.go#L493) method.
 
 That s it ! 
 
