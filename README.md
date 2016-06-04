@@ -1,7 +1,7 @@
 # go-get-started
 get started with go
 
-# Install go
+# Install go >= 1.6.2
 
 I recommend to use `gvm`
 
