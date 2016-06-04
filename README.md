@@ -7,7 +7,8 @@ I recommend to use `gvm`
 
 ```sh
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
-gvm install go1.6 --default
+gvm install go1.6.2
+gvm use go1.6.2 --default
 ```
 
 See https://github.com/moovweb/gvm
