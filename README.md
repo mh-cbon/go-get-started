@@ -263,6 +263,8 @@ Show the documentation for the package in the current directory.
 
 Standard practices to document your code are available [here](https://blog.golang.org/godoc-documenting-go-code)
 
+Go team also provide automatic package documentation generation at [godoc.org](https://godoc.org/)
+
 #### There is more of it
 
 Go team provides many tools that you can check [here](https://golang.org/cmd/)
