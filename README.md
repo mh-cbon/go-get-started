@@ -69,7 +69,7 @@ see https://github.com/Masterminds/glide
 
 Let s create a first package `a`, hosted on `github.com`, as user `mh-cbon`.
 
-At any time you can refer to this folder [gow](https://github.com/mh-cbon/go-get-started/blob/master/gow/) to see the expected result.
+At any time you can refer to [this folder](https://github.com/mh-cbon/go-get-started/blob/master/gow/) to see the expected result.
 
 ```sh
 mkdir -p $GOPATH/src/github.com/mh-cbon/a
