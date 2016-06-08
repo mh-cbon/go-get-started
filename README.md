@@ -37,7 +37,7 @@ export PATH=$PATH:$GOPATH/bin
 # go 1.6.x and below only
 export GOBIN=$GOPATH/bin
 EOT
-source ~/.bash_profile
+source ~/.bashrc
 ```
 
 see https://golang.org/doc/code.html#GOPATH
