@@ -255,6 +255,13 @@ main.go
 
 see [this](https://golang.org/cmd/gofmt/)
 
+#### go doc
+
+`
+Show the documentation for the package in the current directory.
+`
+
+Standard practices to document your code are available [here](https://blog.golang.org/godoc-documenting-go-code)
 
 #### There is more of it
 
