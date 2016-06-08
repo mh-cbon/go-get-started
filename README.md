@@ -30,7 +30,7 @@ see https://golang.org/doc/code.html#Workspaces
 #### Setup the required environment variables
 
 ```sh
-cat <<EOT >> ~/.bash_profile
+cat <<EOT >> ~/.bashrc
 # Go variables
 export GOPATH=$HOME/gow
 export PATH=$PATH:$GOPATH/bin
@@ -55,9 +55,8 @@ mkdir -p $GOPATH/bin
 I recommend `glide` at that time of writing
 
 ```sh
-mdkir -p $GOPATH/src/github.com/Masterminds/glide
+go get github.com/Masterminds/glide
 cd $GOPATH/src/github.com/Masterminds/glide
-git clone https://github.com/Masterminds/glide.git .
 make build
 go install -ldflags "-X main.version=0.10.2-86-g5865b8e" glide.go
 ```
@@ -68,7 +67,9 @@ see https://github.com/Masterminds/glide
 
 # Create your first package
 
-Let s create a first package `a`, hosted on `github.com`, as user `mh-cbon`
+Let s create a first package `a`, hosted on `github.com`, as user `mh-cbon`.
+
+At any time you can refer to this folder [gow](https://github.com/mh-cbon/go-get-started/blob/master/gow/) to see the expected result.
 
 ```sh
 mkdir -p $GOPATH/src/github.com/mh-cbon/a
@@ -76,34 +77,36 @@ cd $GOPATH/src/github.com/mh-cbon/a
 glide create
 
 mkdir a
-touch a/a.go
-cat <<EOT > a/a.go
-package a
+touch sub/a.go
+# File: $GOPATH/src/github.com/mh-cbon/a/sub/lib.go
+cat <<EOT > sub/lib.go
+package lib
 
 import "fmt"
 
 func Hello () {
-  fmt.Println("Hello world! It's a!")
+  fmt.Println("Hello world! It's a/lib!")
 }
 EOT
 
 touch main.go
+# File: $GOPATH/src/github.com/mh-cbon/a/main.go
 cat <<EOT > main.go
 package main
 
-import "./a"
+import "github.com/mh-cbon/a/sub"
 
 func main () {
-  a.Hello()
+  lib.Hello()
 }
 EOT
 
 go run main.go
-  Hello world! It's a!
+  Hello world! It's a/lib!
 ```
 
 This step has created a package named `a` with a binary available at `main.go`.
-`a` package has a lib `a` loaded with `import "./a"`.
+`a` package has a lib `sub` loaded with `import "github.com/mh-cbon/a/sub"`.
 
 Notice the source are created under `$GOPATH/src/` as `github.com/mh-cbon/a`
 
@@ -117,6 +120,7 @@ cd $GOPATH/src/github.com/mh-cbon/b
 glide create
 touch index.go
 
+# File: $GOPATH/src/github.com/mh-cbon/b/index.go
 cat <<EOT > index.go
 package b
 
@@ -134,27 +138,28 @@ Notice the source are created under `$GOPATH/src/` as `github.com/mh-cbon/b`
 
 It is located at `$GOPATH/src`, which makes it loadable from your other go programs/libraries as `github.com/mh-cbon/b`.
 
-# Import b package into a package
+# Import b package from a package
 
 ```sh
 cd $GOPATH/src/github.com/mh-cbon/a
 
+# File: $GOPATH/src/github.com/mh-cbon/a/main.go
 cat <<EOT > main.go
 package main
 
 import (
-  "./a"
+  "github.com/mh-cbon/a/sub"
   "github.com/mh-cbon/b"
 )
 
 func main () {
-  a.Hello()
+  lib.Hello()
   b.Hello()
 }
 EOT
 
 go run main.go
-  Hello world! It's a!
+  Hello world! It's a/lib!
   Hello world! It's b!
 ```
 
@@ -162,7 +167,7 @@ In this step program `a` depends on the local library `github.com/mh-cbon/b` dec
 
 # Depend on a remote package
 
-Let s finish this readme by importing ans consuming a remote dependency. 
+Let s finish this readme by importing ans consuming a remote dependency.
 
 `a` will depend and consume `github.com/Masterminds/semver`
 
@@ -171,17 +176,20 @@ cd $GOPATH/src/github.com/mh-cbon/a
 
 glide get github.com/Masterminds/semver
 
+# File: $GOPATH/src/github.com/mh-cbon/a/main.go
 cat <<EOT > main.go
 package main
 
 import (
-  "./a"
+  "fmt"
+
+  "github.com/mh-cbon/a/sub"
   "github.com/mh-cbon/b"
   "github.com/Masterminds/semver"
 )
 
 func main () {
-  a.Hello()
+  lib.Hello()
   b.Hello()
   c, _ := semver.NewConstraint("<= 1.2.3, >= 1.4")
   fmt.Println(c)
@@ -189,33 +197,68 @@ func main () {
 EOT
 
 go run main.go
-  Hello world! It's a!
+  Hello world! It's a/lib!
   Hello world! It's b!
   &{[[0xc8200129c0 0xc820012a00]]}
 ```
 
 In this step program `a` depends on a remote library installed via `glide`.
-The library `semver` loaded via `import "github.com/Masterminds/semver"` is insalled and available at `./vendor/`.
+The library `semver` loaded via `import "github.com/Masterminds/semver"` is installed and available at `./vendor/`.
 It is a local dependency.
 
 Notice the new `glide.yaml`
 
 ```sh
-cat glide.yaml 
+cat $GOPATH/src/github.com/mh-cbon/a/glide.yaml
 package: github.com/mh-cbon/a
 import:
-- package: github.com/mh-cbon/b
+- package: github.com/Masterminds/semver
 ```
 
 Notice the new `vendor` directory
 
 ```sh
 ls -al .
- a/
+ sub/
  glide.yaml
  main.go
  vendor/
 ```
+
+# Other tools to use
+
+#### go vet
+
+`
+Vet examines Go source code and reports suspicious constructs
+`
+
+```sh
+$ go vet
+can't load package: /home/mh-cbon/gow/src/github.com/mh-cbon/a/main.go:7:2: \
+local import "./a" in non-local package
+```
+
+see [this](https://golang.org/cmd/vet/)
+
+
+#### go fmt
+
+`
+Gofmt formats Go programs.
+`
+
+```sh
+$ go fmt
+main.go
+```
+
+see [this](https://golang.org/cmd/gofmt/)
+
+
+#### There is more of it
+
+Go team provides many tools that you can check [here](https://golang.org/cmd/)
 
 # Other notes
 
@@ -229,10 +272,12 @@ GOBIN=$GOPATH/bin
 
 Which means,
 - when you run `go install....` it installs binary into `$GOPATH/bin`
-- new pakages are created under `$HOME/gow/src`
+- new packages are created under `$HOME/gow/src`
+- do not use relative import paths (eg `import "./mypackage/"`) because they are not compatible with `go install`.
+See [this](https://golang.org/cmd/go/#hdr-Relative_import_paths) and [that](http://stackoverflow.com/questions/30885098/go-local-import-in-non-local-package)
 
 If you really want to understand go implementation of import, please check [Context.Import](https://github.com/golang/go/blob/master/src/go/build/build.go#L493) method.
 
-That s it ! 
+That s it !
 
 ~~ Happy coding
