@@ -76,8 +76,8 @@ mkdir -p $GOPATH/src/github.com/mh-cbon/a
 cd $GOPATH/src/github.com/mh-cbon/a
 glide create
 
-mkdir a
-touch sub/a.go
+mkdir sub
+touch sub/lib.go
 # File: $GOPATH/src/github.com/mh-cbon/a/sub/lib.go
 cat <<EOT > sub/lib.go
 package lib
