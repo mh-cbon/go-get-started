@@ -289,7 +289,8 @@ If you really want to understand go implementation of import, please check [Cont
 
 ## Continue the readings
 
-https://github.com/golang/example
+- https://github.com/golang/example
+- https://golanglibs.com
 
 That s it !
 
