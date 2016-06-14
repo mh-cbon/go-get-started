@@ -287,6 +287,10 @@ See [this](https://golang.org/cmd/go/#hdr-Relative_import_paths) and [that](http
 
 If you really want to understand go implementation of import, please check [Context.Import](https://github.com/golang/go/blob/master/src/go/build/build.go#L493) method.
 
+## Continue the readings
+
+https://github.com/golang/example
+
 That s it !
 
 ~~ Happy coding
